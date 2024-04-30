@@ -6,6 +6,7 @@ import Hotel from '../models/hotel';
 import verifyToken from '../middleware/auth';
 import { body } from 'express-validator';
 import e from 'express';
+import { error } from 'console';
 
 const router = express.Router();
 
@@ -71,6 +72,20 @@ async (req:Request, res: Response) => {
 
     }
 
+
+});
+
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+    
+    try {
+        const hotels = await Hotel.find({userId: req.userId});
+        res.json(hotels);
+
+
+    } catch (error) {
+        res.status(500).json({message: "Error fetching hotels"});
+    }
+    
 
 });
 
