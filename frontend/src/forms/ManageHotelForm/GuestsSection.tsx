@@ -20,12 +20,12 @@ const GuestsSection = ()=> {
                             required: "This field is required",
                         })}
                         />
-                        {errors.adultCount?.message} && (
+                        {errors.adultCount?.message && (
                         <span className="text-red-500 text-sm font-bold">
                             {errors.adultCount?.message}
                         </span>
 
-                    )
+                    )}
                     </label>
 
                     <label className="text-gray-700 text-sm font-semibold">
@@ -37,12 +37,12 @@ const GuestsSection = ()=> {
                             required: "This field is required",
                         })}
                         />
-                        {errors.childCount?.message} && (
+                        {errors.childCount?.message && (
                         <span className="text-red-500 text-sm font-bold">
                             {errors.childCount?.message}
                         </span>
 
-                    )
+                    )}
                     </label>
                     
                 </div>

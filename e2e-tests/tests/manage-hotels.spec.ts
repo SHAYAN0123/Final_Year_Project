@@ -55,14 +55,38 @@ await page.locator('[name="pricePerNight"]').fill("100");
 
         await expect(page.getByText("White Rose")).toBeVisible({ timeout: 10000 });
         await expect(page.getByText("White Rose Marquee")).toBeVisible();
+
+        await page.getByText('ISLAMABAD, Pakistan').scrollIntoViewIfNeeded();
+
         await expect(page.getByText("ISLAMABAD, Pakistan")).toBeVisible();
         await expect(page.getByText("Marquee/Banquet")).toBeVisible();
         await expect(page.getByText("998 per head")).toBeVisible();
         await expect(page.getByText("100 adults, 47 children")).toBeVisible();
         await expect(page.getByText("5 Star Rating")).toBeVisible();
         
-        await expect(page.getByRole("link", {name: "View Details"})) .toBeVisible();
+        await expect(page.getByRole("link", {name: "View Details"}).first()) .toBeVisible();
         await expect(page.getByRole("link", {name: "Add Hotel"})) .toBeVisible();
+
+    });
+
+    test ("should edit hotel", async ({page}) => {
+        await page.goto (`${UI_URL}my-hotels`);
+
+        await page.getByRole ("link" , {name: "View Details"}).first().click();
+
+        await page.waitForSelector('[name="name"]', {state:"attached"});
+        await expect(page.locator('[name="name"]')).toHaveValue('Grace Event Complex');
+        await page.locator('[name="name"]').fill("Grace Event Complex Updated");
+        await page.getByRole("button", {name: "Save"}).click();
+        await expect(page.getByText("Venue Saved!")).toBeVisible();
+
+        await page.reload();
+
+        await expect (page.locator('[name="name"]')).toHaveValue("Grace Event Complex Updated")
+        await page.locator('[name="name"]').fill("Grace Event Complex");
+        await page.getByRole("button", {name: "Save"}).click();
+
+
 
     });
     

@@ -75,7 +75,7 @@
 
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import {HotelType} from "../../backend/src/models/hotel";
+import {HotelType} from "../../backend/src/shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -143,7 +143,7 @@ export const addMyHotel = async (hotelFormData: FormData) => {
     });
 
     if (!response.ok) {
-        throw new Error("Failed to add hotel");
+        throw new Error("Failed to add venue");
     }
 
     return response.json();
@@ -158,8 +158,42 @@ export const fetchMyHotels = async (): Promise<HotelType[]> => {
     });
 
     if (!response.ok) {
-        throw new Error("Error fetching the hotels");
+        throw new Error("Error fetching the venues");
     }
 
     return response.json();
+};
+
+
+export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
+    const response = await fetch (`${API_BASE_URL}/api/my-hotels/${hotelId}` , {
+        credentials: "include",
+    });
+
+    if (!response.ok) {
+        throw new Error("Error fetching the venue");
+    }
+
+    return response.json();
+
+};
+
+export const updateMyHotelById = async (hotelFormData: FormData) => {
+    const response = await fetch(
+    `${API_BASE_URL}/api/my-hotels/${hotelFormData.get("hotelId")}`,
+    {
+        method: "PUT",
+        body: hotelFormData,
+        credentials: "include",
+
+    }
+);
+
+if (!response.ok) {
+    throw new Error("Failed to update venue");
+}
+
+return response.json();
+
+
 };
