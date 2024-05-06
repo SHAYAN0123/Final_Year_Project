@@ -50,8 +50,8 @@ const SearchBar = () => {
                     <input
                      className="w-full p-1 focus:outline-none font-bold"
                     type="number"
-                    min={1}
-                    max={20}
+                    min={50}
+                    max={500}
                     value={adultCount}
                     onChange={(event) => setAdultCount(parseInt(event.target.value))}
                     
@@ -65,7 +65,7 @@ const SearchBar = () => {
                      className="w-full p-1 focus:outline-none font-bold"
                     type="number"
                     min={0}
-                    max={20}
+                    max={200}
                     value={childCount}
                     onChange={(event) => setChildCount(parseInt(event.target.value))}
                     

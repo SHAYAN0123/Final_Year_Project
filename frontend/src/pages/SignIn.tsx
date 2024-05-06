@@ -5,7 +5,7 @@ import { useAppContext } from "../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 
 export type SignInFormData = {
     email: string;
@@ -17,6 +17,8 @@ const SignIn = () => {
     const {showToast} = useAppContext();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
+
+    const location = useLocation();
 
 
 
@@ -30,7 +32,7 @@ const SignIn = () => {
         onSuccess: async () => {
             showToast({message: "Login Successful", type: "SUCCESS"});
             await queryClient.invalidateQueries("validateToken");
-            navigate("/");
+            navigate(location.state?.from?.pathname ||  "/");
 
         }, onError: (error: Error) => {
             showToast({message: error.message, type: "ERROR"});
